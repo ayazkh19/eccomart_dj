@@ -1,0 +1,16 @@
+{% extends 'artstore/layout.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="w-100 d-flex justify-content-center align-content-center mt-5">
+        <div class="sign-in-box">
+            <form action="" method="POST">
+                {% csrf_token %}
+                {{form}}
+                <button class="btn btn-lg btn-dark btn-block" type="submit">Login</button>
+            </form>
+            <div class="m-2"></div>
+            <p class="p text-center">don't have an account <a href="{% url 'artstore:register' %}"><strong>Register</strong></a> instead</p>
+        </div>
+    </div>
+{% endblock %}

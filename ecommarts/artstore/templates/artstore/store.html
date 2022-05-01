@@ -1,0 +1,32 @@
+{% extends 'artstore/layout.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-12 mt-5 mb-2">
+            {% if products %}
+                <h1 class="h5 font-weight-bold">All Products</h1>
+            {% endif %}
+        </div>
+        <!-- product loop -->
+        {% if products %}
+            {% for product in products %}
+              <!--product card-->
+              <div class="col-4 mb-4">
+                <img class="thumbnail" src="{{ product.image.url }}">
+                <div class="box-element product">
+                    <h6><strong>{{product.name | capfirst }}</strong></h6>
+                    <hr>
+
+                    <button data-name="{{product.name}}" data-image="{{product.image.url}}" data-product="{{product.id}}" data-price="{{ product.price }}" data-action="add-once" class="btn btn-warning add-btn update-cart">Add to Cart</button>
+
+                    <!--<a class="btn btn-outline-secondary" href="#">View</a>-->
+                    <h4 style="display: inline-block; float: right"><strong>${{product.price}}</strong></h4>
+                </div>
+              </div><!--product card-->
+            {% endfor %}<!--product loop-->
+        {% else %}
+            <h1 class="h5">No product available right now!</h1>
+        {% endif %}
+    </div>
+{% endblock content %}

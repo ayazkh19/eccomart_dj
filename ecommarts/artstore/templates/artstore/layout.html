@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+	<title>Art Store</title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1" />
+
+    <link rel="icon" type="image/png" href="{% static 'images/cart.png' %}"/>
+
+	<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" >
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" >
+</head>
+<body>
+
+	<nav class="navbar navbar-expand-lg light">
+	  <a class="navbar-brand" href="{% url 'artstore:homepage' %}">ArtStore</a>
+	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+	    <span class="navbar-toggler-icon"></span>
+	  </button>
+
+	  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+        <ul class="navbar-nav mr-auto">
+
+            <li class="nav-item active">
+              <a class="nav-link" href="{% url 'artstore:store' %}">Store </a>
+            </li>
+            {% if request.session.customer %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'artstore:orders' %}">Orders </a>
+            </li>
+            {% endif %}
+
+        </ul>
+	    <div class="form-inline my-2 my-lg-0">
+
+            <a href="{% url 'artstore:cart' %}">
+                <img  id="cart-icon" src="{% static 'images/cart.png' %}" alt="cart icon" width="35px">
+            </a>
+            <p ><span class="rounded bg-info p-1" id="cart-total">0</span></p>
+            {% if request.session.customer %}
+                <form action="{% url 'artstore:logout' %}" method="POST">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-sm btn-warning ml-2">Logout</button>
+                </form>
+            {% else %}
+                <a href="{% url 'artstore:register' %}" class="btn btn-sm btn-warning ml-2">Sign Up</a>
+    	     	<a href="{% url 'artstore:login' %}" class="btn btn-sm btn-warning ml-2">Login</a>
+            {% endif %}
+
+            {% if request.resolver_match.url_name == 'homepage' or request.resolver_match.url_name == 'store' or request.resolver_match.url_name == 'search' %}
+                <form action="{% url 'artstore:search' %}" class="form-inline my-2 my-lg-0 ml-2" method="GET">
+                    <input class="form-control mr-sm-2 " type="search" name="q" placeholder="Search Products" aria-label="Search">
+                    <button class="btn btn-sm btn-secondary text-white my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            {% endif %}
+
+	    </div>
+	  </div>
+	</nav>
+
+
+    <main>
+        <div class="container">
+            {% block content %}
+
+
+            {% endblock content %}
+        </div>
+    </main>
+
+    <footer class="footer mt-5">
+      <div class="container">
+        <div class="footer">
+            <span class="text-muted">copyright 2021</span>
+        </div>
+      </div>
+    </footer>
+
+	<script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/popper.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/cart.js' %}"></script>
+</body>
+</html>

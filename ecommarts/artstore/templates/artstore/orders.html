@@ -1,0 +1,40 @@
+{% extends 'artstore/layout.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="row mt-5">
+        <div class="col-12">
+            <h4 class="h4">Orders Items</h4>
+        </div>
+        <div class="col-12">
+            <div class="table-container">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th scope="col">Order Id</th>
+                      <th scope="col">Product</th>
+                      <th scope="col">Price</th>
+                      <th scope="col">Quantity</th>
+                      <th scope="col">Order Date</th>
+                      <th scope="col">Complete Status</th>
+                    </tr>
+                  </thead>
+                  <tbody >
+                    {% for orderitem_set in orders %}
+                        {% for orderItem in orderitem_set %}
+                            <tr>
+                              <th scope="row">{{orderItem.order.id}}</th>
+                              <td>{{orderItem.product.name}}</td>
+                              <td>$ {{orderItem.product.price}}</td>
+                              <td>{{orderItem.quantity}}</td>
+                              <td>{{orderItem.date_added}}</td>
+                              <td>{{orderItem.order.is_completed}}</td>
+                            </tr>
+                        {% endfor %}
+                    {% endfor %}
+                  </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

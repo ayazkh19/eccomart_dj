@@ -1,0 +1,46 @@
+{% extends 'artstore/layout.html' %}
+{% load static %}
+{% block content %}
+	<div class="cart-container mt-5">
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="box-element">
+
+					<a  class="btn btn-outline-dark" href="{% url 'artstore:store' %}">&#x2190; Back to Store</a>
+
+					<br>
+					<br>
+					<table class="table">
+						<tr>
+							<th><h5>Items: <strong id="item-quantity">{{order.get_cart_items}}</strong></h5></th>
+							<th><h5>Total:<strong id="item-total"> ${{order.get_cart_total|floatformat:2}}</strong></h5></th>
+							<th>
+								<a  style="float:right; margin:5px;" class="btn btn-dark" href="{% url 'artstore:checkout' %}">Checkout</a>
+							</th>
+						</tr>
+					</table>
+
+				</div>
+
+				<br>
+				<div class="table-container">
+					<!--place table here-->
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th scope="col"></th>
+                          <th scope="col">Item</th>
+                          <th scope="col">Price</th>
+                          <th scope="col">Quantity</th>
+                          <th scope="col">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody id="dynamic-cart-items">
+                        <!--dynamic cart items rows-->
+                      </tbody>
+                    </table>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock content %}

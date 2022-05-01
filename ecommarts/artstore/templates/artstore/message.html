@@ -1,0 +1,12 @@
+{% if action == "clearCart" %}
+    <script>
+        alert("{{ msg }}");
+        localStorage.removeItem('cart');
+        window.location.replace("{{redirect}}");
+    </script>
+{% else %}
+    <script>
+        alert("{{ msg }}");
+        window.location.replace("{{redirect}}");
+    </script>
+{% endif %}
